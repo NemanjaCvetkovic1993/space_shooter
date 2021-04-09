@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
         
     }
 
-    private voit SetUpMoveBoundaries()
+    private void SetUpMoveBoundaries()
     {
         Camera gameCamera = Camera.main;
         // This is for the bottom left screen, only first value (x) is important.
