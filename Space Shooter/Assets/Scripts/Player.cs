@@ -24,9 +24,9 @@ public class Player : MonoBehaviour
     {
         Camera gameCamera = Camera.main;
         // This is for the bottom left screen, only first value (x) is important.
-        xMin = gameCamera.ViewportToPoint(new Vector3(0, 0, 0)).x + spaceShipPadding;
-        // This is fot the bottom right screen, with value of 1.
-        xMax = gameCamera.ViewportToPoint(new Vector3(1, 0, 0)).x - spaceShipPadding;
+        xMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + spaceShipPadding;
+        // This is for the bottom right screen, with value of 1.
+        xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - spaceShipPadding;
     }
 
     // Update is called once per frame
