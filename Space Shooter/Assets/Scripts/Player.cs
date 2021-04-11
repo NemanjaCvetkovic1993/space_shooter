@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     [SerializeField] float spaceShipPadding = 1f;
     [SerializeField] GameObject laserPrefab;
     [SerializeField] float laserSpeed = 22f;
+    [SerializeField] float projectileFiringPeriod = 0.1f;
+
+    Coroutine firingCoroutine;  // A handle that starts and stops spaceship firing
 
     float xMin;
     float xMax;
@@ -41,9 +44,22 @@ public class Player : MonoBehaviour
     private void Fire()
     {
         if(Input.GetButtonDown("Fire1")) {
-            GameObject laser =  Instantiate(laserPrefab, transform.position, Quaternion.identity) as GameObject;
-            laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, laserSpeed);
+            firingCoroutine = StartCoroutine(FireContinuously());
         }
+        if (Input.GetButtonUp("Fire1"))
+        {
+            StopCoroutine(firingCoroutine);
+        }
+    }
+
+    IEnumerator FireContinuously()
+    {
+        while (true) 
+            { 
+                GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity) as GameObject;
+                laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, laserSpeed);
+                yield return new WaitForSeconds(projectileFiringPeriod);
+            }
     }
     
     private void SetUpMoveBoundaries()
